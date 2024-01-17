@@ -1,31 +1,18 @@
+
 def evalRPN(self, tokens: list[str]) -> int:
 
     stack = []
-    while tokens:
-        stack.append(tokens.pop(0))
-
-        if stack[-1] == '+':
-            stack.pop()
-            first = int(stack.pop())
-            second = int(stack.pop())
-            stack.append(second + first)
-
-        if stack[-1] == '-':
-            stack.pop()
-            first = int(stack.pop())
-            second = int(stack.pop())
-            stack.append(second - first)
-
-        if stack[-1] == '*':
-            stack.pop()
-            first = int(stack.pop())
-            second = int(stack.pop())
-            stack.append(second * first)
-
-        if stack[-1] == '/':
-            stack.pop()
-            first = int(stack.pop())
-            second = int(stack.pop())
-            stack.append(int(float(second / first)))
-
-    return int(stack[0])
+    for t in tokens:
+        if t not in '+-*/':
+            stack.append(int(t))
+        else:
+            num = stack.pop()
+            if t == '+':
+                stack[-1] += num
+            elif t == '-':
+                stack[-1] -= num
+            elif t == '*':
+                stack[-1] *= num
+            else:
+                stack[-1] = int(stack[-1] / num)
+    return stack[0]
