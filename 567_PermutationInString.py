@@ -1,3 +1,4 @@
+from collections import Counter
 
 def checkInclusion(s1: str, s2: str) -> bool:
 
@@ -6,15 +7,10 @@ def checkInclusion(s1: str, s2: str) -> bool:
 
     left = 0
     right = len(s1) - 1
-    d1 = {}
-    for x in s1:
-        d1[x] = 1 + d1.get(x, 0)
+    d1 = Counter(s1)
 
     while right < len(s2):
-        d2 ={}
-        for y in s2[left:right + 1]:
-            d2[y] = 1 + d2.get(y, 0)
-
+        d2 = Counter(s2[left:right+1])
         if d1 == d2:
             return True
         left += 1
