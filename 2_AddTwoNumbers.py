@@ -8,8 +8,7 @@ class Solution:
     def addTwoNumbers(self, list1: [ListNode], list2: [ListNode]) -> [ListNode]:
 
         # Initialize dummy node and carry over number
-        dummy = ListNode()
-        tail = dummy
+        dummy = tail = ListNode()
         carry = 0
 
         while list1 or list2 or carry:
