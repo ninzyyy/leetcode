@@ -10,9 +10,7 @@ class Solution:
         if not root:
             return None
 
-        temp_left, temp_right = root.left, root.right
-        root.right = temp_left
-        root.left = temp_right
+        root.left, root.right = root.right, root.left
 
         self.invertTree(root.right)
         self.invertTree(root.left)
