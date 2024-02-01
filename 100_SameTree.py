@@ -21,3 +21,25 @@ class Solution:
             return False
 
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+    def isSameTreeIter(self, p: [TreeNode], q: [TreeNode]) -> bool:
+
+        stack = [[p, q]]
+
+        while stack:
+
+            first, second = stack.pop()
+
+            if not first and not second:
+                continue
+
+            if not first or not second:
+                return False
+
+            if first.val != second.val:
+                return False
+
+            stack.append([first.left, second.left])
+            stack.append([first.right, second.right])
+
+        return True
