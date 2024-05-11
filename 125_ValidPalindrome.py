@@ -1,19 +1,19 @@
+def isPalindrome(s: str) -> bool:
 
-def isPalindrome(s:str) -> bool:
+    # Remove non-alphanumeric chars and convert to lower case
+    s = "".join([x for x in s if x.isalnum()]).lower()
 
-    s = s.lower()
-    s = s.replace(" ", "")
-    s_list = [letter for letter in s]
-    s_list = [letter for letter in s_list if letter.isalnum()]
+    # Initialize pointers
+    left, right = 0, len(s) - 1
 
-    for n in range(int(len(s_list)/2)):
-        if s_list[n] != s_list[-abs(n+1)]:
+    while left < right:
+        if not s[left] == s[right]:
             return False
+        left += 1
+        right -= 1
     return True
 
-s = 'ra#ce:ca^r'
-answer = isPalindrome(s)
-if answer == True:
-    print('✅ The string is a palindrome.')
-else:
-    print('❌ The string is not a palindrome.')
+
+print(isPalindrome("ra#ce&car"))  # True
+print(isPalindrome("A man, a plan, a canal: Panama"))  # True
+print(isPalindrome("Hello world!"))  # False
