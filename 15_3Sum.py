@@ -1,24 +1,27 @@
 def threeSum(nums: list[int]) -> list[list[int]]:
 
-    output = set()
+    res = []
     nums = sorted(nums)
 
-    for i in range(len(nums)-2):
-        first = nums[i]
-        j, k = i + 1, len(nums) - 1
+    for i, val in enumerate(nums):
 
-        while j < k:
-            second, third = nums[j], nums[k]
+        # Condition to skip duplicate values in sorted nums
+        if i > 0 and val == nums[i - 1]:
+            continue
 
-            if first + second + third > 0:
-                k -= 1
-            elif first + second + third < 0:
-                j += 1
+        L, R = i + 1, len(nums) - 1
+        while L < R:
+            if val + nums[L] + nums[R] < 0:
+                L += 1
+            elif val + nums[L] + nums[R] > 0:
+                R -= 1
             else:
-                output.add((first, second, third))
-                j += 1
-                k -= 1
+                res.append([nums[i], nums[L], nums[R]])
+                L += 1
+                while L < R and nums[L] == nums[L - 1]:
+                    L += 1
 
-    return output
+    return res
 
-print(threeSum([-1,0,1,2,-1,-4]))
+
+print(threeSum([-1, 0, 1, 2, -1, -4]))  # [[-1, -1, 2], [-1, 0, 1]]
