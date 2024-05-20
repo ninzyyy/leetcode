@@ -1,25 +1,22 @@
 def generateParenthesis(n: int) -> list[str]:
 
-    solution = []
+    res = []
 
-    def backtrack(current, openBrackets, closedBrackets):
+    def backtrack(curr, opened, closed):
 
-        # Base Case
-        if openBrackets == closedBrackets == n:
-            solution.append("".join(current))
+        if opened == closed == n:
+            res.append(curr)
             return
 
-        if closedBrackets < openBrackets:
-            current.append(")")
-            backtrack(current, openBrackets, closedBrackets + 1)
-            current.pop()
+        if n > opened:
+            backtrack(curr + "(", opened + 1, closed)
 
-        if openBrackets < n:
-            current.append("(")
-            backtrack(current, openBrackets + 1, closedBrackets)
-            current.pop()
+        if opened > closed:
+            backtrack(curr + ")", opened, closed + 1)
 
-    backtrack(["("], 1, 0)
-    return solution
+    backtrack("", 0, 0)
+    return res
 
-print(generateParenthesis(3))
+
+print(generateParenthesis(3))  # ['((()))', '(()())', '(())()', '()(())', '()()()']
+print(generateParenthesis(1))  # ['()']
