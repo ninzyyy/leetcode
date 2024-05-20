@@ -10,6 +10,7 @@ def generateParenthesis(n: int) -> list[str]:
 
         if n > opened:
             backtrack(curr + "(", opened + 1, closed)
+            # Once the call stack of backtracks is done, the executor will move to the next "if" statement below
 
         if opened > closed:
             backtrack(curr + ")", opened, closed + 1)
