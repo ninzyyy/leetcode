@@ -1,17 +1,21 @@
-
 def carFleet(target: int, position: list[int], speed: list[int]) -> int:
 
-    l = [[pos, spd] for pos, spd in zip(position, speed)]
-    stack = []
+    fleet, prev = 0, 0
 
-    for pos, spd in sorted(l)[::-1]: #sorted, reversed
-        time = (target - pos) / spd
-        stack.append(time)
+    # Go through cars in order of their position (lead cars first)
+    for p, s in sorted(zip(position, speed))[::-1]:
 
-        # Check to see if the any cars reaches target before or
-        # same time as another (and merge as one fleet)
-        if len(stack) >= 2 and stack[-1] <= stack[-2]:
-            stack.pop()
-    return len(stack)
+        # Calculate the time of arrival for each car
+        t = (target - p) / s
 
-print(carFleet(12, [10,8,0,5,3], [2,4,1,1,3]))
+        # If the last car arrives earlier, it joins the fleet
+        if prev < t:
+            fleet += 1
+            prev = t
+
+    return fleet
+
+
+print(carFleet(12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]))  # 3
+print(carFleet(10, [6, 8], [3, 2]))  # 2
+print(carFleet(10, [0, 4, 2], [2, 1, 3]))  # 1
