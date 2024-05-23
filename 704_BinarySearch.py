@@ -1,17 +1,23 @@
-
 def search(nums: list[int], target: int) -> int:
 
-        left, right = 0, len(nums) - 1
+    left, right = 0, len(nums) - 1
 
-        while left <= right: # Iterative loop until pointers meet
-            mid = (left + right) // 2
-            if nums[mid] > target:
-                right = mid - 1
-            elif nums[mid] < target:
-                left = mid + 1
-            else:
-                return mid
-        return -1
+    while left <= right:
 
-if __name__ == "__main__":
-    print(search([1,2,3,4,5,6,7,8,9,10], 5))
+        middle = (left + right) // 2
+
+        if nums[middle] < target:
+            left = middle + 1
+
+        elif nums[middle] > target:
+            right = middle - 1
+
+        else:
+            return middle
+
+    return -1
+
+
+print(search(nums=[-1, 0, 3, 5, 9, 12], target=9))  # 4
+print(search(nums=[-1, 0, 3, 5, 9, 12], target=2))  # -1
+print(search(nums=[2, 5], target=5))  # 1
